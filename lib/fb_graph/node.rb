@@ -47,7 +47,9 @@ module FbGraph
 
     def get(params = {})
       handle_response do
-        http_client.get build_endpoint(params), build_params(params), {"Accept-Encoding" => "gzip"}
+        client = http_client
+        client.transparent_gzip_decompression = true
+        client.get build_endpoint(params), build_params(params), {"Accept-Encoding" => "gzip"}
       end
     end
 
